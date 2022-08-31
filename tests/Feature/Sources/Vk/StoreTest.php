@@ -70,10 +70,10 @@ test('not vk url', function () {
  * Попытка создания с url, который уже добавлен
  */
 test('already', function () {
-    $vkparsingSource = modelBuilderHelper()->parsingSource->vk->create();
+    $vkParsingSource = modelBuilderHelper()->parsingSource->vk->create();
 
     authHelper()->signInAsAdmin();
-    $this->post(routeBuilderHelper()->parsingSource->vk->store(), ['url' => $vkparsingSource->url])
+    $this->post(routeBuilderHelper()->parsingSource->vk->store(), ['url' => $vkParsingSource->url])
         ->assertSessionHasErrors(['url']);
 });
 
@@ -81,13 +81,13 @@ test('already', function () {
  * Успешное добавление
  */
 test('success', function () {
-    $vkparsingSource = modelBuilderHelper()->parsingSource->vk->make();
+    $vkParsingSource = modelBuilderHelper()->parsingSource->vk->make();
 
     authHelper()->signInAsAdmin();
-    $this->post(routeBuilderHelper()->parsingSource->vk->store(), $vkparsingSource->toArray())
+    $this->post(routeBuilderHelper()->parsingSource->vk->store(), $vkParsingSource->toArray())
         ->assertSessionHasNoErrors()
         ->assertSessionHas('alert.success')
         ->assertRedirect(route('parsing-source.vk.index'));
 
-    $this->assertDatabaseHas('vk_parsing_sources', ['title' => $vkparsingSource->title, 'url' => $vkparsingSource->url]);
+    $this->assertDatabaseHas('vk_parsing_sources', ['title' => $vkParsingSource->title, 'url' => $vkParsingSource->url]);
 });

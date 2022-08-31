@@ -27,4 +27,24 @@ class VkBuilder
     {
         return '/parsing-sources/vk';
     }
+
+    /**
+     * @param int $id
+     *
+     * @return string
+     */
+    public function edit(int $id): string
+    {
+        return "/parsing-sources/vk/$id/edit";
+    }
+
+    /**
+     * @param int $id
+     *
+     * @return string
+     */
+    public function update(int $id): string
+    {
+        return "/parsing-sources/vk/$id";
+    }
 }

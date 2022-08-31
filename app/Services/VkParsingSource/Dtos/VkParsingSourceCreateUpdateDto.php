@@ -2,7 +2,7 @@
 
 namespace App\Services\VkParsingSource\Dtos;
 
-class VkParsingSourceCreateDto
+class VkParsingSourceCreateUpdateDto
 {
     public string $title;
 
