@@ -38,4 +38,13 @@ class AuthHelper
         $user = $user ?: $this->modelBuilder->user->create();
         test()->actingAs($user);
     }
+
+    /**
+     * @return void
+     */
+    public function signInAsAdmin(): void
+    {
+        $user = $this->modelBuilder->user->createAdmin();
+        test()->actingAs($user);
+    }
 }

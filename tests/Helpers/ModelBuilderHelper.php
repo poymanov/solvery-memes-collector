@@ -2,17 +2,20 @@
 
 namespace Tests\Helpers;
 
+use Tests\Helpers\ModelBuilder\ParsingSourceBuilder;
 use Tests\Helpers\ModelBuilder\UserBuilder;
 
 class ModelBuilderHelper
 {
     private static ?ModelBuilderHelper $instance = null;
 
-    public UserBuilder $user;
+    public UserBuilder          $user;
+    public ParsingSourceBuilder $parsingSource;
 
     private function __construct()
     {
-        $this->user = new UserBuilder();
+        $this->user          = new UserBuilder();
+        $this->parsingSource = new ParsingSourceBuilder();
     }
 
     /**
