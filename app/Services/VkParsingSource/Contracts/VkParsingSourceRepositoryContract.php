@@ -3,6 +3,7 @@
 namespace App\Services\VkParsingSource\Contracts;
 
 use App\Services\VkParsingSource\Dtos\VkParsingSourceCreateDto;
+use App\Services\VkParsingSource\Dtos\VkParsingSourceDto;
 use App\Services\VkParsingSource\Exceptions\VkParsingSourceCreateFailedException;
 
 interface VkParsingSourceRepositoryContract
@@ -16,4 +17,11 @@ interface VkParsingSourceRepositoryContract
      * @throws VkParsingSourceCreateFailedException
      */
     public function create(VkParsingSourceCreateDto $vkSourceCreateDto): void;
+
+    /**
+     * Получение списка источник парсинга VK
+     *
+     * @return VkParsingSourceDto[]
+     */
+    public function findAll(): array;
 }

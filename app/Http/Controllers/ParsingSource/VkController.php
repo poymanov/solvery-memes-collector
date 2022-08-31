@@ -15,17 +15,35 @@ class VkController extends Controller
     {
     }
 
+    /**
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
+    public function index()
+    {
+        $vkParsingSources = $this->vkSourceService->findAll();
+
+        return view('sources.vk.index', compact('vkParsingSources'));
+    }
+
+    /**
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
     public function create()
     {
         return view('sources.vk.create');
     }
 
+    /**
+     * @param StoreRequest $request
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function store(StoreRequest $request)
     {
         try {
             $this->vkSourceService->create($request->get('title'), $request->get('url'));
 
-            return redirect()->route('dashboard', )->with('alert.success', 'VK source was created');
+            return redirect()->route('parsing-source.vk.index')->with('alert.success', 'VK source was created');
         } catch (VkParsingSourceCreateFailedException $e) {
             return redirect()->back()->with('alert.error', $e->getMessage());
         } catch (Throwable $e) {

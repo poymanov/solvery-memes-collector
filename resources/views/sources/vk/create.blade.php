@@ -9,7 +9,8 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
-                    <form>
+                    <form method="post" action="{{ route('parsing-source.vk.store') }}">
+                        @csrf
                         <div class="shadow sm:rounded-md sm:overflow-hidden">
                             <div class="px-4 py-5 bg-white space-y-6 sm:p-6">
                                 <div class="col-span-3 sm:col-span-2">

@@ -23,4 +23,12 @@ class VkParsingSourceService implements VkParsingSourceServiceContract
 
         $this->vkSourceRepository->create($vkSourceCreateDto);
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function findAll(): array
+    {
+        return $this->vkSourceRepository->findAll();
+    }
 }

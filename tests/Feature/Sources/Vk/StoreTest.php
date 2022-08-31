@@ -87,7 +87,7 @@ test('success', function () {
     $this->post(routeBuilderHelper()->parsingSource->vk->store(), $vkparsingSource->toArray())
         ->assertSessionHasNoErrors()
         ->assertSessionHas('alert.success')
-        ->assertRedirect('dashboard');
+        ->assertRedirect(route('parsing-source.vk.index'));
 
     $this->assertDatabaseHas('vk_parsing_sources', ['title' => $vkparsingSource->title, 'url' => $vkparsingSource->url]);
 });

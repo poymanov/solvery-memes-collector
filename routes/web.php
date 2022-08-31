@@ -22,8 +22,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/dashboard', fn () => view('dashboard'))->name('dashboard');
 
     Route::group(['middleware' => ['role:admin']], function () {
-        Route::group(['prefix' => '/parsing-sources', 'as' => 'source'], function () {
-            Route::resource('vk', VkController::class)->only(['create', 'store']);
+        Route::group(['prefix' => '/parsing-sources', 'as' => 'parsing-source.'], function () {
+            Route::resource('vk', VkController::class)->only(['index', 'create', 'store']);
         });
     });
 });

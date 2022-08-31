@@ -7,6 +7,14 @@ class VkBuilder
     /**
      * @return string
      */
+    public function index(): string
+    {
+        return '/parsing-sources/vk';
+    }
+
+    /**
+     * @return string
+     */
     public function create(): string
     {
         return '/parsing-sources/vk/create';
