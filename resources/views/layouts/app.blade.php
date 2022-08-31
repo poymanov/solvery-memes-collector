@@ -26,6 +26,7 @@
 
             <!-- Page Content -->
             <main>
+                <x-alert />
                 {{ $slot }}
             </main>
         </div>
