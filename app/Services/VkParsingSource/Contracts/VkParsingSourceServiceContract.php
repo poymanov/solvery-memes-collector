@@ -4,6 +4,7 @@ namespace App\Services\VkParsingSource\Contracts;
 
 use App\Services\VkParsingSource\Dtos\VkParsingSourceDto;
 use App\Services\VkParsingSource\Exceptions\VkParsingSourceCreateFailedException;
+use App\Services\VkParsingSource\Exceptions\VkParsingSourceDeleteFailedException;
 use App\Services\VkParsingSource\Exceptions\VkParsingSourceNotFoundException;
 use App\Services\VkParsingSource\Exceptions\VkParsingSourceUpdateFailedException;
 
@@ -32,6 +33,17 @@ interface VkParsingSourceServiceContract
      * @throws VkParsingSourceUpdateFailedException
      */
     public function update(int $id, string $title, string $url): void;
+
+    /**
+     * Удаление источника парсинга VK
+     *
+     * @param int $id
+     *
+     * @return void
+     * @throws VkParsingSourceDeleteFailedException
+     * @throws VkParsingSourceNotFoundException
+     */
+    public function delete(int $id): void;
 
     /**
      * Получение источника парсинга по ID

@@ -23,7 +23,7 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::group(['middleware' => ['role:admin']], function () {
         Route::group(['prefix' => '/parsing-sources', 'as' => 'parsing-source.'], function () {
-            Route::resource('vk', VkController::class)->only(['index', 'create', 'store', 'edit', 'update']);
+            Route::resource('vk', VkController::class)->only(['index', 'create', 'store', 'edit', 'update', 'destroy']);
         });
     });
 });

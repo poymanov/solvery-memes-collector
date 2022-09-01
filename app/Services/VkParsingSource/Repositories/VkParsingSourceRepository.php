@@ -8,6 +8,7 @@ use App\Services\VkParsingSource\Contracts\VkParsingSourceRepositoryContract;
 use App\Services\VkParsingSource\Dtos\VkParsingSourceCreateUpdateDto;
 use App\Services\VkParsingSource\Dtos\VkParsingSourceDto;
 use App\Services\VkParsingSource\Exceptions\VkParsingSourceCreateFailedException;
+use App\Services\VkParsingSource\Exceptions\VkParsingSourceDeleteFailedException;
 use App\Services\VkParsingSource\Exceptions\VkParsingSourceNotFoundException;
 use App\Services\VkParsingSource\Exceptions\VkParsingSourceUpdateFailedException;
 
@@ -42,6 +43,18 @@ class VkParsingSourceRepository implements VkParsingSourceRepositoryContract
 
         if (!$vkSource->save()) {
             throw new VkParsingSourceUpdateFailedException($id);
+        }
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function delete(int $id): void
+    {
+        $vkSource = $this->findModelById($id);
+
+        if (!$vkSource->delete()) {
+            throw new VkParsingSourceDeleteFailedException($id);
         }
     }
 

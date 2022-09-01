@@ -47,4 +47,14 @@ class VkBuilder
     {
         return "/parsing-sources/vk/$id";
     }
+
+    /**
+     * @param int $id
+     *
+     * @return string
+     */
+    public function delete(int $id): string
+    {
+        return "/parsing-sources/vk/$id";
+    }
 }

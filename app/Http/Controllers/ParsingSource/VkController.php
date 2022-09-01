@@ -8,8 +8,10 @@ use App\Http\Requests\Source\Vk\UpdateRequest;
 use App\Models\VkParsingSource;
 use App\Services\VkParsingSource\Contracts\VkParsingSourceServiceContract;
 use App\Services\VkParsingSource\Exceptions\VkParsingSourceCreateFailedException;
+use App\Services\VkParsingSource\Exceptions\VkParsingSourceDeleteFailedException;
 use App\Services\VkParsingSource\Exceptions\VkParsingSourceNotFoundException;
 use App\Services\VkParsingSource\Exceptions\VkParsingSourceUpdateFailedException;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Log;
 use Throwable;
 
@@ -60,7 +62,7 @@ class VkController extends Controller
     /**
      * @param StoreRequest $request
      *
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function store(StoreRequest $request)
     {
@@ -81,7 +83,7 @@ class VkController extends Controller
      * @param VkParsingSource $vk
      * @param UpdateRequest   $request
      *
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function update(VkParsingSource $vk, UpdateRequest $request)
     {
@@ -90,6 +92,26 @@ class VkController extends Controller
 
             return redirect()->route('parsing-source.vk.index')->with('alert.success', 'VK source was updated');
         } catch (VkParsingSourceNotFoundException | VkParsingSourceUpdateFailedException $e) {
+            return redirect()->back()->with('alert.error', $e->getMessage());
+        } catch (Throwable $e) {
+            Log::error($e);
+
+            return redirect()->route('dashboard')->with('alert.error', 'Something went wrong');
+        }
+    }
+
+    /**
+     * @param VkParsingSource $vk
+     *
+     * @return RedirectResponse
+     */
+    public function destroy(VkParsingSource $vk)
+    {
+        try {
+            $this->vkSourceService->delete($vk->id);
+
+            return redirect()->route('parsing-source.vk.index')->with('alert.success', 'VK source was deleted');
+        } catch (VkParsingSourceNotFoundException | VkParsingSourceDeleteFailedException $e) {
             return redirect()->back()->with('alert.error', $e->getMessage());
         } catch (Throwable $e) {
             Log::error($e);

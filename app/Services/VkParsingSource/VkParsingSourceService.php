@@ -40,6 +40,14 @@ class VkParsingSourceService implements VkParsingSourceServiceContract
     /**
      * @inheritDoc
      */
+    public function delete(int $id): void
+    {
+        $this->vkSourceRepository->delete($id);
+    }
+
+    /**
+     * @inheritDoc
+     */
     public function findOneById(int $id): VkParsingSourceDto
     {
         return $this->vkSourceRepository->findOneById($id);
