@@ -87,6 +87,9 @@ backend-ide-helper-meta:
 
 backend-ide-helper: backend-ide-helper-generate backend-ide-helper-models backend-ide-helper-meta
 
+backend-run-queue:
+	docker-compose run --rm php-cli php artisan queue:work
+
 frontend-clear:
 	docker run --rm -v ${PWD}:/app -w /app alpine sh -c 'rm -rf .ready'
 
