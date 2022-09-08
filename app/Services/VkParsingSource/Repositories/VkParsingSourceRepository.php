@@ -11,6 +11,8 @@ use App\Services\VkParsingSource\Exceptions\VkParsingSourceCreateFailedException
 use App\Services\VkParsingSource\Exceptions\VkParsingSourceDeleteFailedException;
 use App\Services\VkParsingSource\Exceptions\VkParsingSourceNotFoundException;
 use App\Services\VkParsingSource\Exceptions\VkParsingSourceUpdateFailedException;
+use App\Services\VkParsingSource\Exceptions\VkParsingSourceUpdateParsingStatusException;
+use DateTime;
 
 class VkParsingSourceRepository implements VkParsingSourceRepositoryContract
 {
@@ -75,6 +77,21 @@ class VkParsingSourceRepository implements VkParsingSourceRepositoryContract
     }
 
     /**
+     * @inheritDoc
+     */
+    public function updateParsingStatus(int $id, string $parsingStatus, DateTime $date): void
+    {
+        $vkParsingSource = $this->findModelById($id);
+        $vkParsingSource->id = $id;
+        $vkParsingSource->parsing_status = $parsingStatus;
+        $vkParsingSource->parsed_at = $date->format('Y-m-d H:i:s');
+
+        if (!$vkParsingSource->save()) {
+            throw new VkParsingSourceUpdateParsingStatusException($id, $parsingStatus);
+        }
+    }
+
+    /**
      * Получение модели по ID
      *
      * @param int $id
@@ -84,12 +101,12 @@ class VkParsingSourceRepository implements VkParsingSourceRepositoryContract
      */
     private function findModelById(int $id): VkParsingSource
     {
-        $task = VkParsingSource::find($id);
+        $vkParsingSource = VkParsingSource::find($id);
 
-        if (!$task) {
+        if (!$vkParsingSource) {
             throw new VkParsingSourceNotFoundException($id);
         }
 
-        return $task;
+        return $vkParsingSource;
     }
 }

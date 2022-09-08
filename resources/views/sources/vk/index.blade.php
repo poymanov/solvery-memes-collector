@@ -18,6 +18,8 @@
                             <th class="py-3 px-6 text-left">ID</th>
                             <th class="py-3 px-6 text-left">Title</th>
                             <th class="py-3 px-6 text-left">URL</th>
+                            <th class="py-3 px-6 text-center">Parsing Status</th>
+                            <th class="py-3 px-6 text-center">Parsed At</th>
                             <th class="py-3 px-6 text-center">Actions</th>
                         </tr>
                         </thead>
@@ -27,6 +29,16 @@
                                 <td class="py-3 px-6 text-left">{{ $vkParsingSource->id }}</td>
                                 <td class="py-3 px-6 text-left">{{ $vkParsingSource->title }}</td>
                                 <td class="py-3 px-6 text-left"><a href="{{ $vkParsingSource->url }}" target="_blank" class="underline decoration-solid">{{ $vkParsingSource->url }}</a></td>
+                                <td class="py-3 px-6 text-center">
+                                    <div class="flex item-center justify-center">
+                                        @include('sources/vk/_parsing-status', ['status' => $vkParsingSource->parsingStatus])
+                                    </div>
+                                </td>
+                                <td class="py-3 px-6 text-center">
+                                    <div class="flex item-center justify-center">
+                                        {{ $vkParsingSource->parsedAt ? $vkParsingSource->parsedAt->format('d-m-Y H:i') : null }}
+                                    </div>
+                                </td>
                                 <td class="py-3 px-6 text-center">
                                     <div class="flex item-center justify-center">
                                         <div class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110">

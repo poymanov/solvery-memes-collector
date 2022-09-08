@@ -32,4 +32,43 @@ test('success', function () {
 
     $response->assertSeeText($vkParsingSource->title);
     $response->assertSeeText($vkParsingSource->url);
+    $response->assertSeeText('Not Parsed');
+});
+
+/**
+ * Отображение записи со статусом парсинга "Успешно"
+ */
+test('parsed status success', function () {
+    $date = new DateTime('2022-01-01 13:45');
+
+    modelBuilderHelper()->parsingSource->vk->create(
+        ['parsing_status' => 'success', 'parsed_at' => $date]
+    );
+
+    authHelper()->signInAsAdmin();
+
+    $response = $this->get(routeBuilderHelper()->parsingSource->vk->index());
+    $response->assertOk();
+
+    $response->assertSeeText('Success');
+    $response->assertSeeText('01-01-2022 13:45');
+});
+
+/**
+ * Отображение записи со статусом парсинга "Неуспешно"
+ */
+test('parsed status failed', function () {
+    $date = new DateTime('2022-01-01 13:45');
+
+    modelBuilderHelper()->parsingSource->vk->create(
+        ['parsing_status' => 'failed', 'parsed_at' => $date]
+    );
+
+    authHelper()->signInAsAdmin();
+
+    $response = $this->get(routeBuilderHelper()->parsingSource->vk->index());
+    $response->assertOk();
+
+    $response->assertSeeText('Failed');
+    $response->assertSeeText('01-01-2022 13:45');
 });

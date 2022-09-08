@@ -2,6 +2,9 @@
 
 namespace App\Services\VkParsingSource\Dtos;
 
+use App\Enums\ParsingStatusEnum;
+use DateTime;
+
 class VkParsingSourceDto
 {
     public int $id;
@@ -9,4 +12,8 @@ class VkParsingSourceDto
     public string $title;
 
     public string $url;
+
+    public ParsingStatusEnum $parsingStatus;
+
+    public ?DateTime $parsedAt;
 }

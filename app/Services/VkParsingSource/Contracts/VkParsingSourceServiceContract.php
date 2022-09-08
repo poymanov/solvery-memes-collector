@@ -2,11 +2,13 @@
 
 namespace App\Services\VkParsingSource\Contracts;
 
+use App\Enums\ParsingStatusEnum;
 use App\Services\VkParsingSource\Dtos\VkParsingSourceDto;
 use App\Services\VkParsingSource\Exceptions\VkParsingSourceCreateFailedException;
 use App\Services\VkParsingSource\Exceptions\VkParsingSourceDeleteFailedException;
 use App\Services\VkParsingSource\Exceptions\VkParsingSourceNotFoundException;
 use App\Services\VkParsingSource\Exceptions\VkParsingSourceUpdateFailedException;
+use App\Services\VkParsingSource\Exceptions\VkParsingSourceUpdateParsingStatusException;
 
 interface VkParsingSourceServiceContract
 {
@@ -61,4 +63,16 @@ interface VkParsingSourceServiceContract
      * @return VkParsingSourceDto[]
      */
     public function findAll(): array;
+
+    /**
+     * Обновление статуса парсинга
+     *
+     * @param int               $id
+     * @param ParsingStatusEnum $parsingStatus
+     *
+     * @return void
+     * @throws VkParsingSourceNotFoundException
+     * @throws VkParsingSourceUpdateParsingStatusException
+     */
+    public function updateParsingStatus(int $id, ParsingStatusEnum $parsingStatus): void;
 }

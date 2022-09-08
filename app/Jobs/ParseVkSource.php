@@ -2,6 +2,8 @@
 
 namespace App\Jobs;
 
+use App\Enums\ParsingStatusEnum;
+use App\Services\VkParsingSource\Contracts\VkParsingSourceServiceContract;
 use App\Services\VkParsingSource\Dtos\VkParsingSourceDto;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -34,8 +36,10 @@ class ParseVkSource implements ShouldQueue
      *
      * @return void
      */
-    public function handle()
+    public function handle(VkParsingSourceServiceContract $vkParsingSourceService)
     {
+        $vkParsingSourceService->updateParsingStatus($this->vkParsingSource->id, ParsingStatusEnum::SUCCESS);
+
         Log::info($this->vkParsingSource->url);
     }
 }

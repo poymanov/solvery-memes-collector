@@ -2,10 +2,12 @@
 
 namespace App\Services\VkParsingSource;
 
+use App\Enums\ParsingStatusEnum;
 use App\Services\VkParsingSource\Contracts\VkParsingSourceRepositoryContract;
 use App\Services\VkParsingSource\Contracts\VkParsingSourceServiceContract;
 use App\Services\VkParsingSource\Dtos\VkParsingSourceCreateUpdateDto;
 use App\Services\VkParsingSource\Dtos\VkParsingSourceDto;
+use DateTime;
 
 class VkParsingSourceService implements VkParsingSourceServiceContract
 {
@@ -59,5 +61,13 @@ class VkParsingSourceService implements VkParsingSourceServiceContract
     public function findAll(): array
     {
         return $this->vkSourceRepository->findAll();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function updateParsingStatus(int $id, ParsingStatusEnum $parsingStatus): void
+    {
+        $this->vkSourceRepository->updateParsingStatus($id, $parsingStatus->value, new DateTime());
     }
 }

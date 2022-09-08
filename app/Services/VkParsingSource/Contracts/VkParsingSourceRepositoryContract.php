@@ -8,6 +8,8 @@ use App\Services\VkParsingSource\Exceptions\VkParsingSourceCreateFailedException
 use App\Services\VkParsingSource\Exceptions\VkParsingSourceDeleteFailedException;
 use App\Services\VkParsingSource\Exceptions\VkParsingSourceNotFoundException;
 use App\Services\VkParsingSource\Exceptions\VkParsingSourceUpdateFailedException;
+use App\Services\VkParsingSource\Exceptions\VkParsingSourceUpdateParsingStatusException;
+use DateTime;
 
 interface VkParsingSourceRepositoryContract
 {
@@ -60,4 +62,17 @@ interface VkParsingSourceRepositoryContract
      * @return VkParsingSourceDto[]
      */
     public function findAll(): array;
+
+    /**
+     * Обновление статуса парсинга источника парсинга VK
+     *
+     * @param int      $id
+     * @param string   $parsingStatus
+     * @param DateTime $date
+     *
+     * @return void
+     * @throws VkParsingSourceNotFoundException
+     * @throws VkParsingSourceUpdateParsingStatusException
+     */
+    public function updateParsingStatus(int $id, string $parsingStatus, DateTime $date): void;
 }
