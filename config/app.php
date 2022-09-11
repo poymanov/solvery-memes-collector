@@ -1,6 +1,7 @@
 <?php
 
 use App\Providers\UserServiceProvider;
+use App\Providers\VkParserServiceProvider;
 use App\Providers\VkParsingSourceServiceProvider;
 use Illuminate\Support\Facades\Facade;
 
@@ -198,6 +199,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         UserServiceProvider::class,
         VkParsingSourceServiceProvider::class,
+        VkParserServiceProvider::class,
     ],
 
     /*
