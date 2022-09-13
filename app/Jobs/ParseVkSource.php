@@ -2,9 +2,9 @@
 
 namespace App\Jobs;
 
-use App\Enums\ParsingStatusEnum;
+use App\Services\Meme\Exceptions\MemeCreateFailedException;
 use App\Services\VkParser\Contracts\VkParserServiceContract;
-use App\Services\VkParsingSource\Contracts\VkParsingSourceServiceContract;
+use App\Services\VkParser\Exceptions\RequiredPropertyUndefinedException;
 use App\Services\VkParsingSource\Dtos\VkParsingSourceDto;
 use App\Services\VkParsingSource\Exceptions\VkParsingSourceNotFoundException;
 use App\Services\VkParsingSource\Exceptions\VkParsingSourceUpdateParsingStatusException;
@@ -13,7 +13,6 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Support\Facades\Log;
 use Throwable;
 
 class ParseVkSource implements ShouldQueue
@@ -36,31 +35,17 @@ class ParseVkSource implements ShouldQueue
     }
 
     /**
-     * Execute the job.
-     *
-     * @param VkParsingSourceServiceContract $vkParsingSourceService
-     * @param VkParserServiceContract        $vkParserService
+     * @param VkParserServiceContract $vkParserService
      *
      * @return void
+     * @throws RequiredPropertyUndefinedException
+     * @throws Throwable
      * @throws VkParsingSourceNotFoundException
      * @throws VkParsingSourceUpdateParsingStatusException
-     * @throws Throwable
+     * @throws MemeCreateFailedException
      */
-    public function handle(VkParsingSourceServiceContract $vkParsingSourceService, VkParserServiceContract $vkParserService)
+    public function handle(VkParserServiceContract $vkParserService)
     {
-        try {
-            $posts = $vkParserService->getPostsByUrl($this->vkParsingSource->url);
-
-            foreach ($posts as $post) {
-                Log::info($post->text ?? (string) $post->id);
-            }
-
-            $vkParsingSourceService->updateParsingStatus($this->vkParsingSource->id, ParsingStatusEnum::SUCCESS, null);
-        } catch (Throwable $e) {
-            $vkParsingSourceService->updateParsingStatus($this->vkParsingSource->id, ParsingStatusEnum::FAILED, $e->getMessage());
-
-            Log::error('VK Parser (' . $this->vkParsingSource->url . '): ' . $e->getMessage());
-            throw new $e();
-        }
+        $vkParserService->parseSource($this->vkParsingSource);
     }
 }

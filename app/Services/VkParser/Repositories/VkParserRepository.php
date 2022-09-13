@@ -45,6 +45,9 @@ class VkParserRepository implements VkParserRepositoryContract
             throw new RequiredPropertyUndefinedException('response.items');
         }
 
-        return $this->vkPostDtoFactory->createFromPosts($data['response']['items']);
+        $posts = $this->vkPostDtoFactory->createFromPosts($data['response']['items']);
+
+        // Необходимое действие для получения списка в нужном порядке (новые - в конце списка)
+        return array_reverse($posts);
     }
 }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Providers\MemeServiceProvider;
 use App\Providers\UserServiceProvider;
 use App\Providers\VkParserServiceProvider;
 use App\Providers\VkParsingSourceServiceProvider;
@@ -200,6 +201,7 @@ return [
         UserServiceProvider::class,
         VkParsingSourceServiceProvider::class,
         VkParserServiceProvider::class,
+        MemeServiceProvider::class,
     ],
 
     /*

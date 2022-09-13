@@ -27,7 +27,7 @@ class VkParsingSourceServiceProvider extends ServiceProvider
 
 
         $this->app->bindMethod([ParseVkSource::class, 'handle'], function ($job, $app) {
-            return $job->handle($app->make(VkParsingSourceServiceContract::class), $app->make(VkParserServiceContract::class));
+            return $job->handle($app->make(VkParserServiceContract::class));
         });
     }
 
