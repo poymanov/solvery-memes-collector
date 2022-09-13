@@ -18,12 +18,13 @@ class VkParsingSourceDtoFactory implements VkParsingSourceDtoFactoryContract
      */
     public function createFromModel(VkParsingSource $vkParsingSource): VkParsingSourceDto
     {
-        $dto                = new VkParsingSourceDto();
-        $dto->id            = $vkParsingSource->id;
-        $dto->title         = $vkParsingSource->title;
-        $dto->url           = $vkParsingSource->url;
-        $dto->parsingStatus = ParsingStatusEnum::from($vkParsingSource->parsing_status);
-        $dto->parsedAt      = $vkParsingSource->parsed_at ? new DateTime($vkParsingSource->parsed_at) : null;
+        $dto                           = new VkParsingSourceDto();
+        $dto->id                       = $vkParsingSource->id;
+        $dto->title                    = $vkParsingSource->title;
+        $dto->url                      = $vkParsingSource->url;
+        $dto->parsingStatus            = ParsingStatusEnum::from($vkParsingSource->parsing_status);
+        $dto->parsingStatusDescription = $vkParsingSource->parsing_status_description;
+        $dto->parsedAt                 = $vkParsingSource->parsed_at ? new DateTime($vkParsingSource->parsed_at) : null;
 
         return $dto;
     }

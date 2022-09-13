@@ -15,5 +15,7 @@ class VkParsingSourceDto
 
     public ParsingStatusEnum $parsingStatus;
 
+    public ?string $parsingStatusDescription;
+
     public ?DateTime $parsedAt;
 }

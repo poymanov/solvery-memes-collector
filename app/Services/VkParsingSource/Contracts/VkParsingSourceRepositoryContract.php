@@ -66,13 +66,14 @@ interface VkParsingSourceRepositoryContract
     /**
      * Обновление статуса парсинга источника парсинга VK
      *
-     * @param int      $id
-     * @param string   $parsingStatus
-     * @param DateTime $date
+     * @param int         $id
+     * @param string      $parsingStatus
+     * @param string|null $parsingStatusDescription
+     * @param DateTime    $date
      *
      * @return void
      * @throws VkParsingSourceNotFoundException
      * @throws VkParsingSourceUpdateParsingStatusException
      */
-    public function updateParsingStatus(int $id, string $parsingStatus, DateTime $date): void;
+    public function updateParsingStatus(int $id, string $parsingStatus, ?string $parsingStatusDescription, DateTime $date): void;
 }

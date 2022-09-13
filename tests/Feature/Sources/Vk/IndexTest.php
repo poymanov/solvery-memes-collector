@@ -51,7 +51,7 @@ test('parsed status success', function () {
     $response->assertOk();
 
     $response->assertSeeText('Success');
-    $response->assertSeeText('01-01-2022 13:45');
+    $response->assertSeeText($date->format('d-m-Y H:i'));
 });
 
 /**
@@ -60,8 +60,10 @@ test('parsed status success', function () {
 test('parsed status failed', function () {
     $date = new DateTime('2022-01-01 13:45');
 
+    $parsingStatusDescription = 'Parsing failed';
+
     modelBuilderHelper()->parsingSource->vk->create(
-        ['parsing_status' => 'failed', 'parsed_at' => $date]
+        ['parsing_status' => 'failed', 'parsing_status_description' => $parsingStatusDescription, 'parsed_at' => $date]
     );
 
     authHelper()->signInAsAdmin();
@@ -70,5 +72,6 @@ test('parsed status failed', function () {
     $response->assertOk();
 
     $response->assertSeeText('Failed');
-    $response->assertSeeText('01-01-2022 13:45');
+    $response->assertSee($parsingStatusDescription);
+    $response->assertSeeText($date->format('d-m-Y H:i'));
 });

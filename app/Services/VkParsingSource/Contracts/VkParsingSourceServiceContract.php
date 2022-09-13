@@ -69,10 +69,11 @@ interface VkParsingSourceServiceContract
      *
      * @param int               $id
      * @param ParsingStatusEnum $parsingStatus
+     * @param string|null       $parsingStatusDescription
      *
      * @return void
      * @throws VkParsingSourceNotFoundException
      * @throws VkParsingSourceUpdateParsingStatusException
      */
-    public function updateParsingStatus(int $id, ParsingStatusEnum $parsingStatus): void;
+    public function updateParsingStatus(int $id, ParsingStatusEnum $parsingStatus, ?string $parsingStatusDescription): void;
 }

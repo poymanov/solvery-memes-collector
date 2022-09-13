@@ -66,8 +66,8 @@ class VkParsingSourceService implements VkParsingSourceServiceContract
     /**
      * @inheritDoc
      */
-    public function updateParsingStatus(int $id, ParsingStatusEnum $parsingStatus): void
+    public function updateParsingStatus(int $id, ParsingStatusEnum $parsingStatus, ?string $parsingStatusDescription): void
     {
-        $this->vkSourceRepository->updateParsingStatus($id, $parsingStatus->value, new DateTime());
+        $this->vkSourceRepository->updateParsingStatus($id, $parsingStatus->value, $parsingStatusDescription, new DateTime());
     }
 }

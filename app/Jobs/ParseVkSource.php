@@ -55,9 +55,9 @@ class ParseVkSource implements ShouldQueue
                 Log::info($post->text ?? (string) $post->id);
             }
 
-            $vkParsingSourceService->updateParsingStatus($this->vkParsingSource->id, ParsingStatusEnum::SUCCESS);
+            $vkParsingSourceService->updateParsingStatus($this->vkParsingSource->id, ParsingStatusEnum::SUCCESS, null);
         } catch (Throwable $e) {
-            $vkParsingSourceService->updateParsingStatus($this->vkParsingSource->id, ParsingStatusEnum::FAILED);
+            $vkParsingSourceService->updateParsingStatus($this->vkParsingSource->id, ParsingStatusEnum::FAILED, $e->getMessage());
 
             Log::error('VK Parser (' . $this->vkParsingSource->url . '): ' . $e->getMessage());
             throw new $e();

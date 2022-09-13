@@ -79,12 +79,13 @@ class VkParsingSourceRepository implements VkParsingSourceRepositoryContract
     /**
      * @inheritDoc
      */
-    public function updateParsingStatus(int $id, string $parsingStatus, DateTime $date): void
+    public function updateParsingStatus(int $id, string $parsingStatus, ?string $parsingStatusDescription, DateTime $date): void
     {
-        $vkParsingSource = $this->findModelById($id);
-        $vkParsingSource->id = $id;
-        $vkParsingSource->parsing_status = $parsingStatus;
-        $vkParsingSource->parsed_at = $date->format('Y-m-d H:i:s');
+        $vkParsingSource                             = $this->findModelById($id);
+        $vkParsingSource->id                         = $id;
+        $vkParsingSource->parsing_status             = $parsingStatus;
+        $vkParsingSource->parsing_status_description = $parsingStatusDescription;
+        $vkParsingSource->parsed_at                  = $date->format('Y-m-d H:i:s');
 
         if (!$vkParsingSource->save()) {
             throw new VkParsingSourceUpdateParsingStatusException($id, $parsingStatus);

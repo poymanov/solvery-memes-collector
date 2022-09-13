@@ -31,7 +31,7 @@
                                 <td class="py-3 px-6 text-left"><a href="{{ $vkParsingSource->url }}" target="_blank" class="underline decoration-solid">{{ $vkParsingSource->url }}</a></td>
                                 <td class="py-3 px-6 text-center">
                                     <div class="flex item-center justify-center">
-                                        @include('sources/vk/_parsing-status', ['status' => $vkParsingSource->parsingStatus])
+                                        @include('sources/vk/_parsing-status', ['status' => $vkParsingSource->parsingStatus, 'description' => $vkParsingSource->parsingStatusDescription])
                                     </div>
                                 </td>
                                 <td class="py-3 px-6 text-center">
