@@ -17,6 +17,14 @@ interface MemeRepositoryContract
      */
     public function create(MemeCreateDto $memeCreateDto): void;
 
+
+    /**
+     * Получение всех мемов
+     *
+     * @return array
+     */
+    public function findAll(): array;
+
     /**
      * Получение списка ID существующих из представленных мемов
      *

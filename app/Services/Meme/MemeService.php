@@ -30,6 +30,14 @@ class MemeService implements MemeServiceContract
     /**
      * @inheritDoc
      */
+    public function findAll(): array
+    {
+        return $this->memeRepository->findAll();
+    }
+
+    /**
+     * @inheritDoc
+     */
     public function getNotExistedExternalIds(MemeSourceTypeEnum $sourceType, string $sourceAlias, array $externalIds): array
     {
         $existedExternalIds = $this->memeRepository->getExistedExternalIds($sourceType->value, $sourceAlias, $externalIds);

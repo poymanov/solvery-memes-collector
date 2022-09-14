@@ -19,6 +19,11 @@ interface MemeServiceContract
     public function create(MemeSourceTypeEnum $sourceType, string $sourceAlias, string $externalId, ?string $text): void;
 
     /**
+     * @return array
+     */
+    public function findAll(): array;
+
+    /**
      * Получение списка ID несуществующих из представленных мемов
      *
      * @param MemeSourceTypeEnum $sourceType

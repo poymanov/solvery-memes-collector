@@ -3,12 +3,18 @@
 namespace App\Services\Meme\Repositories;
 
 use App\Models\Meme;
+use App\Services\Meme\Contracts\MemeDtoFactoryContract;
 use App\Services\Meme\Contracts\MemeRepositoryContract;
 use App\Services\Meme\Dtos\MemeCreateDto;
 use App\Services\Meme\Exceptions\MemeCreateFailedException;
 
 class MemeRepository implements MemeRepositoryContract
 {
+    public function __construct(private readonly MemeDtoFactoryContract $memeDtoFactory)
+    {
+    }
+
+
     /**
      * @inheritDoc
      */
@@ -23,6 +29,16 @@ class MemeRepository implements MemeRepositoryContract
         if (!$meme->save()) {
             throw new MemeCreateFailedException();
         }
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function findAll(): array
+    {
+        $memes = Meme::orderByDesc('id')->get();
+
+        return $this->memeDtoFactory->createFromModelsList($memes);
     }
 
     /**

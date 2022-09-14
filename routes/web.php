@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\MemeController;
 use App\Http\Controllers\ParsingSource\VkController;
 use Illuminate\Support\Facades\Route;
 
@@ -20,6 +21,8 @@ Route::get('/', function () {
 
 Route::group(['middleware' => ['auth']], function () {
     Route::get('/dashboard', fn () => view('dashboard'))->name('dashboard');
+
+    Route::resource('memes', MemeController::class)->only('index');
 
     Route::group(['middleware' => ['role:admin']], function () {
         Route::group(['prefix' => '/parsing-sources', 'as' => 'parsing-source.'], function () {
