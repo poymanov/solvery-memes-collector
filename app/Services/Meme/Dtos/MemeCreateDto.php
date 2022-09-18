@@ -11,4 +11,6 @@ class MemeCreateDto
     public string $externalId;
 
     public ?string $text;
+
+    public array $images;
 }

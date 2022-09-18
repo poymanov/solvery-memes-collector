@@ -17,7 +17,6 @@ interface MemeRepositoryContract
      */
     public function create(MemeCreateDto $memeCreateDto): void;
 
-
     /**
      * Получение всех мемов
      *

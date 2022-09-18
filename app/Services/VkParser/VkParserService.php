@@ -56,7 +56,7 @@ class VkParserService implements VkParserServiceContract
 
             // Получение списка ID постов для проверки перед добавлением в мемы
             foreach ($posts as $post) {
-                if (is_null($post->text)) {
+                if (is_null($post->text) && empty($post->images)) {
                     continue;
                 }
 
@@ -72,7 +72,7 @@ class VkParserService implements VkParserServiceContract
                 }
 
                 // Добавление данных поста в мемы
-                $this->memeService->create(MemeSourceTypeEnum::VK, $parsingDomain, (string)$post->id, $post->text);
+                $this->memeService->create(MemeSourceTypeEnum::VK, $parsingDomain, (string)$post->id, $post->text, $post->images);
             }
 
             $this->vkParsingSourceService->updateParsingStatus($vkParsingSource->id, ParsingStatusEnum::SUCCESS, null);
@@ -80,7 +80,7 @@ class VkParserService implements VkParserServiceContract
             $this->vkParsingSourceService->updateParsingStatus($vkParsingSource->id, ParsingStatusEnum::FAILED, $e->getMessage());
 
             Log::error('VK Parser (' . $vkParsingSource->url . '): ' . $e->getMessage());
-            throw new $e();
+            throw $e;
         }
     }
 }

@@ -16,13 +16,14 @@ class MemeService implements MemeServiceContract
     /**
      * @inheritDoc
      */
-    public function create(MemeSourceTypeEnum $sourceType, string $sourceAlias, string $externalId, ?string $text): void
+    public function create(MemeSourceTypeEnum $sourceType, string $sourceAlias, string $externalId, ?string $text, array $images): void
     {
         $memeCreateDto              = new MemeCreateDto();
         $memeCreateDto->sourceType  = $sourceType->value;
         $memeCreateDto->sourceAlias = $sourceAlias;
         $memeCreateDto->externalId  = $externalId;
         $memeCreateDto->text        = $text;
+        $memeCreateDto->images      = $images;
 
         $this->memeRepository->create($memeCreateDto);
     }

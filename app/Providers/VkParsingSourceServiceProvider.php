@@ -2,8 +2,6 @@
 
 namespace App\Providers;
 
-use App\Jobs\ParseVkSource;
-use App\Services\VkParser\Contracts\VkParserServiceContract;
 use App\Services\VkParsingSource\Contracts\VkParsingSourceDtoFactoryContract;
 use App\Services\VkParsingSource\Contracts\VkParsingSourceRepositoryContract;
 use App\Services\VkParsingSource\Contracts\VkParsingSourceServiceContract;
@@ -24,11 +22,6 @@ class VkParsingSourceServiceProvider extends ServiceProvider
         $this->app->singleton(VkParsingSourceDtoFactoryContract::class, VkParsingSourceDtoFactory::class);
         $this->app->singleton(VkParsingSourceRepositoryContract::class, VkParsingSourceRepository::class);
         $this->app->singleton(VkParsingSourceServiceContract::class, VkParsingSourceService::class);
-
-
-        $this->app->bindMethod([ParseVkSource::class, 'handle'], function ($job, $app) {
-            return $job->handle($app->make(VkParserServiceContract::class));
-        });
     }
 
     /**

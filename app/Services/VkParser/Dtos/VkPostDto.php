@@ -7,4 +7,6 @@ class VkPostDto
     public int $id;
 
     public ?string $text;
+
+    public array $images;
 }

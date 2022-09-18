@@ -17,9 +17,48 @@ class VkPostDtoFactory implements VkPostDtoFactoryContract
             throw new RequiredPropertyUndefinedException('id');
         }
 
+        $images = [];
+
         $vkPostDto       = new VkPostDto();
         $vkPostDto->id   = $post['id'];
         $vkPostDto->text = $post['text'] ?? null;
+
+        if (isset($post['attachments'])) {
+            foreach ($post['attachments'] as $attachment) {
+                // Если тип вложения не изображение
+                if ($attachment['type'] !== 'photo') {
+                    continue;
+                }
+
+                // Если нет данных по изображению
+                if (!isset($attachment['photo']) || !isset($attachment['photo']['sizes'])) {
+                    continue;
+                }
+
+                $maxWidth = 0;
+                $maxHeight = 0;
+
+                $photo = null;
+
+                // Получение изображения максимального размера
+                foreach ($attachment['photo']['sizes'] as $size) {
+                    if ($size['height'] > $maxHeight && $size['width'] > $maxWidth) {
+                        $maxWidth = $size['width'];
+                        $maxHeight = $size['height'];
+
+                        $photo = $size;
+                    }
+                }
+
+                if (is_null($photo) || !isset($photo['url'])) {
+                    continue;
+                }
+
+                $images[] = $photo['url'];
+            }
+        }
+
+        $vkPostDto->images = $images;
 
         return $vkPostDto;
     }

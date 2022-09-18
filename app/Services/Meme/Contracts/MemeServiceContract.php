@@ -12,11 +12,12 @@ interface MemeServiceContract
      * @param string             $sourceAlias
      * @param string             $externalId
      * @param string|null        $text
+     * @param array              $images
      *
      * @return void
      * @throws MemeCreateFailedException
      */
-    public function create(MemeSourceTypeEnum $sourceType, string $sourceAlias, string $externalId, ?string $text): void;
+    public function create(MemeSourceTypeEnum $sourceType, string $sourceAlias, string $externalId, ?string $text, array $images): void;
 
     /**
      * @return array
